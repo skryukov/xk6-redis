@@ -32,7 +32,7 @@ func TestRedis(t *testing.T) {
 	}
 
 	// Custom command:
-	gets = extension.Do(client, "PING", "")
+	gets = extension.Do(client, "PING", "").(string)
 	if gets != "PONG" {
 		t.Fatal("'PONG' should have been returned")
 	}

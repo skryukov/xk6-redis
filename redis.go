@@ -45,16 +45,16 @@ func (*REDIS) Get(client *redis.Client, key string) string {
 }
 
 // Del removes a key/value
-func (*REDIS) Del(client *redis.Client, key string) {
-	err := client.Del(key).Err()
+func (*REDIS) Del(client *redis.Client, keys ...string) {
+	err := client.Del(keys...).Err()
 	if err != nil {
-		ReportError(err, "Failed to remove the specified key")
+		ReportError(err, "Failed to remove the specified keys")
 	}
 }
 
 // Do runs arbitrary/custom commands
-func (*REDIS) Do(client *redis.Client, cmd string, key string) string {
-	val, err := client.Do(cmd, key).Result()
+func (*REDIS) Do(client *redis.Client, args ...interface{}) interface{} {
+	val, err := client.Do(args...).Result()
 	if err != nil {
 		if err == redis.Nil {
 			ReportError(err, "Key does not exist")
@@ -62,6 +62,5 @@ func (*REDIS) Do(client *redis.Client, cmd string, key string) string {
 			ReportError(err, "Failed to do command")
 		}
 	}
-	// TODO: Support more types, not only strings.
-	return val.(string)
+	return val
 }

@@ -23,7 +23,7 @@ Then:
 2. Build the binary:
   ```shell
   CGO_ENABLED=1 go run ./cmd/xk6/main.go build master \
-    --with github.com/dgzlopes/xk6-redis
+    --with github.com/skryukov/xk6-redis
   ```
 
 ## Example
